@@ -1,5 +1,5 @@
 import transactions from "./data.js";
-import { categorize, totalByCategory } from "./logic.js";
+import { categorize, totalByCategory, detectRecurring } from "./logic.js";
 
 console.log("transactions loaded");
 console.log(transactions);
@@ -20,3 +20,7 @@ console.log(transactions[9].merchant, "->", categorize(transactions[9])); // Ele
 console.log("\nTesting totalByCategory():");
 const totals = totalByCategory(transactions);
 console.log(totals);
+
+console.log("=== Testing detectRecurring() ===");
+const recurring = detectRecurring(transactions);
+console.log(recurring);

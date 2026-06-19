@@ -1,6 +1,6 @@
 import transactions from "./data.js";
 
-// Map merchants/keywords to categories
+// Merchants to categories
 const categoryKeywords = {
   Food: [
     "swiggy",
@@ -38,7 +38,6 @@ function categorize(transaction) {
 
   for (const category in categoryKeywords) {
     const keywords = categoryKeywords[category];
-
     for (const keyword of keywords) {
       if (merchant.includes(keyword)) {
         return category;
@@ -74,4 +73,49 @@ function totalByCategory(transactions) {
   return totals;
 }
 
-export { categorize, totalByCategory };
+function detectRecurring(transactions) {
+  const grouped = {};
+  for (const transaction of transactions) {
+    const merchant = transaction.merchant;
+    if (!grouped[merchant]) {
+      grouped[merchant] = [];
+    }
+    grouped[merchant].push(transaction);
+  }
+
+  console.log("Grouped Merchants:", Object.keys(grouped));
+
+  const recurring = [];
+  for (const merchant in grouped) {
+    const group = grouped[merchant];
+    console.log(`Checking ${merchant}: ${group.length} transactions`);
+
+    if (group.length >= 2) {
+      const amounts = group.map((t) => t.amount);
+      const minAmount = Math.min(...amounts);
+      const maxAmount = Math.max(...amounts);
+      const percentDiff = (maxAmount - minAmount) / minAmount;
+
+      console.log(
+        `  Amounts: ${amounts}, Percent diff: ${(percentDiff * 100).toFixed(2)}%`,
+      );
+
+      if (percentDiff <= 0.1) {
+        console.log(`  → FLAGGED as recurring`);
+        recurring.push({
+          merchant: merchant,
+          amount: amounts[0],
+          count: group.length,
+        });
+      } else {
+        console.log(
+          `  → NOT flagged (${(percentDiff * 100).toFixed(2)}% > 10%)`,
+        );
+      }
+    }
+  }
+
+  return recurring;
+}
+
+export { categorize, totalByCategory, detectRecurring };
