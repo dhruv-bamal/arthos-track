@@ -1,3 +1,10 @@
+import type {
+  Category,
+  Transaction,
+  CategoryTotals,
+  RecurringSubscription,
+} from "./type.js";
+
 const categoryKeywords = {
   Food: [
     "swiggy",
@@ -28,25 +35,24 @@ const categoryKeywords = {
     "phone",
   ],
   Others: [],
-};
+} as const;
 
-function categorize(transaction) {
+export function categorize(transaction: Transaction): Category {
   const merchant = transaction.merchant.toLowerCase();
 
-  for (const category in categoryKeywords) {
-    const keywords = categoryKeywords[category];
-    for (const keyword of keywords) {
-      if (merchant.includes(keyword)) {
-        return category;
-      }
-    }
-  }
+  const category = Object.keys(categoryKeywords).find((cat) => {
+    return (
+      categoryKeywords[
+        cat as keyof typeof categoryKeywords
+      ] as readonly string[]
+    ).some((keyword) => merchant.includes(keyword));
+  });
 
-  return "Other";
+  return (category as Category) || "Other";
 }
 
-function totalByCategory(transactions) {
-  const totals = {
+export function totalByCategory(transactions: Transaction[]): CategoryTotals {
+  const totals: CategoryTotals = {
     Food: 0,
     Transport: 0,
     Subscriptions: 0,
@@ -70,13 +76,18 @@ function totalByCategory(transactions) {
   return totals;
 }
 
-function detectRecurring(transactions) {
-  const grouped = transactions.reduce((acc, tx) => {
-    const merchant = tx.merchant;
-    if (!acc[merchant]) acc[merchant] = [];
-    acc[merchant].push(tx);
-    return acc;
-  }, {});
+export function detectRecurring(
+  transactions: Transaction[],
+): RecurringSubscription[] {
+  const grouped = transactions.reduce(
+    (acc: Record<string, Transaction[]>, tx) => {
+      const merchant = tx.merchant;
+      if (!acc[merchant]) acc[merchant] = [];
+      acc[merchant].push(tx);
+      return acc;
+    },
+    {},
+  );
 
   return Object.entries(grouped)
     .filter(([merchant, group]) => {
@@ -95,5 +106,3 @@ function detectRecurring(transactions) {
       count: group.length,
     }));
 }
-
-export { categorize, totalByCategory, detectRecurring };

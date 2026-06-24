@@ -1,3 +1,5 @@
+import type { Transaction } from "./type.js";
+
 // A transaction represents one expense or income entry.
 // Shape:
 // {
@@ -7,7 +9,7 @@
 //   date: when it happened (string, ISO format: YYYY-MM-DD)
 // }
 
-const transactions = [
+const transactions: Transaction[] = [
   {
     id: 1,
     amount: 450,
