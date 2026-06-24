@@ -3,7 +3,7 @@ import type {
   Transaction,
   CategoryTotals,
   RecurringSubscription,
-} from "./type.js";
+} from "../type.js";
 
 const categoryKeywords = {
   Food: [

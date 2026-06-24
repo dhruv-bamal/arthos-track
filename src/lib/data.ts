@@ -1,4 +1,4 @@
-import type { Transaction } from "./type.js";
+import type { Transaction } from "../type.js";
 
 // A transaction represents one expense or income entry.
 // Shape:
