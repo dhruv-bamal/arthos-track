@@ -9,8 +9,8 @@ A spending & subscription tracker for Indian students and freelancers.
 - Auto-categorizes expenses by merchant name (Swiggy → Food, Netflix → Subscriptions, etc.)
 - Shows total spending per category
 - Filters the expense list by category
-- Detects recurring subscriptions (coming: Week 3 UI)
-- Persists data across refreshes with localStorage (coming: Week 3)
+- Detects recurring subscriptions
+- Persists data across refreshes with localStorage
 
 ## Tech
 
