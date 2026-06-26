@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Transaction, Category } from "./types";
 import Header from "./components/Header";
 import AddExpenseForm from "./components/AddExpenseForm";
@@ -9,9 +9,26 @@ import { categorize } from "./lib/logic";
 
 type FilterCategory = Category | "All";
 
+const STORAGE_KEY = "money-tracker-transactions";
+
 function App() {
-  const [transactions, setTransactions] = useState<Transaction[]>(initialData);
+  const [transactions, setTransactions] = useState<Transaction[]>(() => {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw !== null) {
+      try {
+        return JSON.parse(raw) as Transaction[];
+      } catch {
+        return initialData;
+      }
+    }
+    return initialData;
+  });
+
   const [activeCategory, setActiveCategory] = useState<FilterCategory>("All");
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(transactions));
+  }, [transactions]);
 
   function addExpense(transaction: Transaction): void {
     setTransactions([...transactions, transaction]);
