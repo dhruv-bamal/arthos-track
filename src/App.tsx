@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { categorize, detectRecurring } from "./lib/logic";
 import type { Transaction, Category, RecurringSubscription } from "./types";
 import Header from "./components/Header";
+import BudgetBar from "./components/BudgetBar";
 import Summary from "./components/Summary";
 import RecurringSection from "./components/RecurringSection";
 import AddExpenseForm from "./components/AddExpenseForm";
@@ -58,6 +59,7 @@ function App() {
   return (
     <div>
       <Header />
+      <BudgetBar transactions={transactions} />
       <Summary transactions={transactions} />
       <RecurringSection subscriptions={recurring} />
       <div>
