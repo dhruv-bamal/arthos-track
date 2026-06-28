@@ -8,6 +8,7 @@ import RecurringSection from "./components/RecurringSection";
 import AddExpenseForm from "./components/AddExpenseForm";
 import ExpenseList from "./components/ExpenseList";
 import initialData from "./lib/data";
+import styles from "./styles/App.module.css";
 
 type FilterCategory = Category | "All";
 
@@ -57,31 +58,38 @@ function App() {
   ];
 
   return (
-    <div>
+    <div className={styles.app}>
       <Header />
       <BudgetBar transactions={transactions} />
-      <Summary transactions={transactions} />
-      <RecurringSection subscriptions={recurring} />
-      <div>
-        {filterButtons.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setActiveCategory(cat)}
-            style={{
-              fontWeight: activeCategory === cat ? "bold" : "normal",
-              textDecoration: activeCategory === cat ? "underline" : "none",
-            }}
-          >
-            {cat}
-          </button>
-        ))}
+      <div className={styles.gridSummary}>
+        <Summary transactions={transactions} />
+        <RecurringSection subscriptions={recurring} />
       </div>
-      <AddExpenseForm onAdd={addExpense} />
-      <ExpenseList
-        transactions={filteredTransactions}
-        onDelete={deleteExpense}
-        recurringMerchants={recurringMerchants}
-      />
+      <div className={styles.gridExpenses}>
+        <AddExpenseForm onAdd={addExpense} />
+        <div className={styles.expensesColumn}>
+          <div className={styles.filterBar}>
+            {filterButtons.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={
+                  activeCategory === cat
+                    ? `${styles.filterButton} ${styles.filterButtonActive}`
+                    : styles.filterButton
+                }
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+          <ExpenseList
+            transactions={filteredTransactions}
+            onDelete={deleteExpense}
+            recurringMerchants={recurringMerchants}
+          />
+        </div>
+      </div>
     </div>
   );
 }

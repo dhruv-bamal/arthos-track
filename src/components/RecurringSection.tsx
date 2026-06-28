@@ -1,4 +1,5 @@
 import type { RecurringSubscription } from "../types";
+import styles from "../styles/RecurringSection.module.css";
 
 interface RecurringSectionProps {
   subscriptions: RecurringSubscription[];
@@ -7,9 +8,9 @@ interface RecurringSectionProps {
 function RecurringSection({ subscriptions }: RecurringSectionProps) {
   if (subscriptions.length === 0) {
     return (
-      <section>
-        <h2>🔁 Subscriptions</h2>
-        <p>
+      <section className={styles.card}>
+        <h2 className={styles.title}>🔁 Subscriptions</h2>
+        <p className={styles.empty}>
           Add a few months of expense and we'll automatically detect charges.
         </p>
       </section>
@@ -17,13 +18,13 @@ function RecurringSection({ subscriptions }: RecurringSectionProps) {
   }
 
   return (
-    <section>
-      <h2>🔁 Detected Subscriptions</h2>
+    <section className={styles.card}>
+      <h2 className={styles.title}>🔁 Detected Subscriptions</h2>
       {subscriptions.map((sub) => (
-        <div key={sub.merchant}>
-          <span>{sub.merchant}</span>
-          <span>₹{sub.amount} / month</span>
-          <span>({sub.count} charges detected)</span>
+        <div key={sub.merchant} className={styles.row}>
+          <span className={styles.merchant}>{sub.merchant}</span>
+          <span className={styles.amount}>₹{sub.amount} / month</span>
+          <span className={styles.count}>({sub.count} charges detected)</span>
         </div>
       ))}
     </section>

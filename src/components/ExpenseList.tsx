@@ -1,5 +1,6 @@
 import type { Transaction } from "../types";
 import ExpenseItem from "./ExpenseItem";
+import styles from "../styles/ExpenseList.module.css";
 
 interface ExpenseListProps {
   transactions: Transaction[];
@@ -14,14 +15,14 @@ function ExpenseList({
 }: ExpenseListProps) {
   if (transactions.length === 0) {
     return (
-      <div>
-        <p>No expenses yet - add your first one.</p>
+      <div className={styles.empty}>
+        <p className={styles.emptyText}>No expenses yet - add your first one.</p>
       </div>
     );
   }
 
   return (
-    <div>
+    <div className={styles.list}>
       {transactions.map((tx) => (
         <ExpenseItem
           key={tx.id}

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Transaction } from "../types";
+import styles from "../styles/AddExpenseForm.module.css";
 
 interface AddExpenseFormProps {
   onAdd: (transaction: Transaction) => void;
@@ -44,21 +45,26 @@ function AddExpenseForm({ onAdd }: AddExpenseFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <div>
-        <label htmlFor="merchant">Merchant</label>
+    <form onSubmit={handleSubmit} className={styles.form}>
+      {error && <p className={styles.error}>{error}</p>}
+      <div className={styles.field}>
+        <label htmlFor="merchant" className={styles.label}>
+          Merchant
+        </label>
         <input
           id="merchant"
           type="text"
           value={merchant}
           onChange={(e) => setMerchant(e.target.value)}
           placeholder="e.g. Swiggy, Netflix"
+          className={styles.input}
         />
       </div>
 
-      <div>
-        <label htmlFor="amount">Amount (₹)</label>
+      <div className={styles.field}>
+        <label htmlFor="amount" className={styles.label}>
+          Amount (₹)
+        </label>
         <input
           id="amount"
           type="number"
@@ -66,20 +72,26 @@ function AddExpenseForm({ onAdd }: AddExpenseFormProps) {
           onChange={(e) => setAmount(e.target.value)}
           placeholder="0"
           min="0"
+          className={styles.input}
         />
       </div>
 
-      <div>
-        <label htmlFor="date">Date</label>
+      <div className={styles.field}>
+        <label htmlFor="date" className={styles.label}>
+          Date
+        </label>
         <input
           id="date"
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
+          className={styles.input}
         />
       </div>
 
-      <button type="submit">Add Expense</button>
+      <button type="submit" className={styles.submit}>
+        Add Expense
+      </button>
     </form>
   );
 }

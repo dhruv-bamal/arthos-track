@@ -1,0 +1,151 @@
+@import "../styles/global.css";
+
+/* Desktop (>=768px): single flex row. The 🔁 badge is a conditional sibling,
+   so flex + order keeps it hugging the merchant while the meta cluster is
+   pushed right via margin-left:auto on the category badge. */
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--color-surface-2);
+  transition: background 0.1s ease;
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.item:hover {
+  background: var(--color-surface-2);
+}
+
+.merchant {
+  order: 0;
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text-primary);
+}
+
+.recurring {
+  order: 1;
+  display: inline-flex;
+  align-items: center;
+  background: var(--color-subscriptions-bg);
+  color: var(--color-subscriptions);
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+  font-weight: var(--font-medium);
+}
+
+.category {
+  order: 2;
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius-full);
+  padding: 2px 8px;
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+  font-weight: var(--font-medium);
+}
+
+.amount {
+  order: 3;
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+  text-align: right;
+}
+
+.date {
+  order: 4;
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+  color: var(--color-text-secondary);
+  text-align: right;
+}
+
+.delete {
+  order: 5;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.delete:hover {
+  color: var(--color-red);
+  background: var(--color-red-bg);
+}
+
+.delete:focus-visible {
+  outline: none;
+  color: var(--color-red);
+  background: var(--color-red-bg);
+}
+
+/* Mobile (<768px): each item becomes a card with explicit 3-row placement:
+   merchant | 🔁, category | amount, date | delete. Explicit placement
+   tolerates the optional 🔁 (its cell is simply empty when absent). */
+@media (max-width: 767px) {
+  .item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: var(--space-2) var(--space-3);
+    padding: 14px;
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    border-bottom: none;
+  }
+
+  .item:hover {
+    background: var(--color-surface);
+  }
+
+  .merchant {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .recurring {
+    grid-row: 1;
+    grid-column: 2;
+    justify-self: end;
+  }
+
+  .category {
+    grid-row: 2;
+    grid-column: 1;
+    justify-self: start;
+    margin-left: 0;
+  }
+
+  .amount {
+    grid-row: 2;
+    grid-column: 2;
+    justify-self: end;
+  }
+
+  .date {
+    grid-row: 3;
+    grid-column: 1;
+    justify-self: start;
+  }
+
+  .delete {
+    grid-row: 3;
+    grid-column: 2;
+    justify-self: end;
+  }
+}

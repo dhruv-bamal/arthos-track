@@ -1,0 +1,82 @@
+@import "../styles/global.css";
+
+/* Page is a single stacked column of sections */
+.app {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding-top: var(--space-8);
+}
+
+/* Two-column grid: Summary (60) + RecurringSection (40) */
+.gridSummary {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+/* Two-column grid: AddExpenseForm (40) + filters/list (60) */
+.gridExpenses {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+/* Right column of the expenses grid: filter row stacked above the list */
+.expensesColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Filter buttons row */
+.filterBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.filterButton {
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.filterButton:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.filterButton:focus-visible {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.filterButtonActive {
+  background: var(--color-accent);
+  color: #ffffff;
+  border-color: var(--color-accent);
+  font-weight: var(--font-medium);
+}
+
+.filterButtonActive:hover {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  color: #ffffff;
+}
+
+/* Tablet + mobile: collapse both two-column grids to a single column */
+@media (max-width: 1023px) {
+  .gridSummary,
+  .gridExpenses {
+    grid-template-columns: 1fr;
+  }
+}

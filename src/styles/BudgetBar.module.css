@@ -1,0 +1,106 @@
+@import "../styles/global.css";
+
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-6);
+}
+
+.title {
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+}
+
+.limitRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.limitLabel {
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+  font-weight: var(--font-medium);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.limitInput {
+  width: 120px;
+  text-align: right;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 6px 12px;
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.limitInput:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.35);
+}
+
+.statsRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-8);
+  margin: var(--space-4) 0;
+}
+
+.spent {
+  font-size: var(--text-3xl);
+  line-height: var(--leading-3xl);
+  font-weight: var(--font-bold);
+  color: var(--color-text-primary);
+}
+
+.remaining {
+  font-size: var(--text-xl);
+  line-height: var(--leading-xl);
+  font-weight: var(--font-semibold);
+  color: var(--color-green);
+}
+
+.over {
+  font-size: var(--text-xl);
+  line-height: var(--leading-xl);
+  font-weight: var(--font-semibold);
+  color: var(--color-red);
+}
+
+/* Progress track. The "% used" caption lives inside this element in the
+   markup, so the track must not clip (no overflow:hidden); bottom margin
+   reserves room for the absolutely-positioned caption. */
+.barTrack {
+  position: relative;
+  height: 12px;
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+  margin: var(--space-4) 0 var(--space-8);
+}
+
+.barFill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.5s ease, background-color 0.4s ease;
+}
+
+.barCaption {
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  left: 0;
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  color: var(--color-text-secondary);
+}
