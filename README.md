@@ -2,13 +2,19 @@
 
 A spending & subscription tracker for Indian students and freelancers.
 
+**[Live Demo](https://money-tracker-drab-tau.vercel.app/)** · **[GitHub](https://github.com/dhruv-bamal/money-tracker)**
+
 # Budget Bar
 
 ![App screenshot](public/appScreenshot01.png)
 
-# Category Division, Recurring Section & Expense List
+# Category Division, Recurring Section
 
 ![App screenshot](public/appScreenshot02.png)
+
+# Expense List
+
+![App screenshot](public/appScreenshot03.png)
 
 ## What it does
 
